@@ -1,0 +1,10 @@
+D:\School\Software Dev - Level 5\Software Development\Assignemts\Assignement 2\Room Access Control System\Room Access Control System\bin\Debug\Room Access Control System.exe.config
+D:\School\Software Dev - Level 5\Software Development\Assignemts\Assignement 2\Room Access Control System\Room Access Control System\bin\Debug\Room Access Control System.exe
+D:\School\Software Dev - Level 5\Software Development\Assignemts\Assignement 2\Room Access Control System\Room Access Control System\bin\Debug\Room Access Control System.pdb
+D:\School\Software Dev - Level 5\Software Development\Assignemts\Assignement 2\Room Access Control System\Room Access Control System\obj\Debug\Room Access Control System.csproj.AssemblyReference.cache
+D:\School\Software Dev - Level 5\Software Development\Assignemts\Assignement 2\Room Access Control System\Room Access Control System\obj\Debug\Room_Access_Control_System.Form1.resources
+D:\School\Software Dev - Level 5\Software Development\Assignemts\Assignement 2\Room Access Control System\Room Access Control System\obj\Debug\Room_Access_Control_System.Properties.Resources.resources
+D:\School\Software Dev - Level 5\Software Development\Assignemts\Assignement 2\Room Access Control System\Room Access Control System\obj\Debug\Room Access Control System.csproj.GenerateResource.cache
+D:\School\Software Dev - Level 5\Software Development\Assignemts\Assignement 2\Room Access Control System\Room Access Control System\obj\Debug\Room Access Control System.csproj.CoreCompileInputs.cache
+D:\School\Software Dev - Level 5\Software Development\Assignemts\Assignement 2\Room Access Control System\Room Access Control System\obj\Debug\Room Access Control System.exe
+D:\School\Software Dev - Level 5\Software Development\Assignemts\Assignement 2\Room Access Control System\Room Access Control System\obj\Debug\Room Access Control System.pdb

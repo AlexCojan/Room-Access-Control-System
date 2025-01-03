@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "D:\\School\\Software Dev - Level 5\\Software Development\\Assignemts\\Assignement 2\\Room Access Control System\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|d:\\school\\software dev - level 5\\software development\\assignemts\\assignement 2\\room access control system\\room access control system\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|solutionrelative:room access control system\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|d:\\school\\software dev - level 5\\software development\\assignemts\\assignement 2\\room access control system\\room access control system\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|solutionrelative:room access control system\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|d:\\school\\software dev - level 5\\software development\\assignemts\\assignement 2\\room access control system\\room access control system\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|solutionrelative:room access control system\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
@@ -19,6 +27,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "D:\\School\\Software Dev - Level 5\\Software Development\\Assignemts\\Assignement 2\\Room Access Control System\\Room Access Control System\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "Room Access Control System\\Form1.Designer.cs",
+              "ToolTip": "D:\\School\\Software Dev - Level 5\\Software Development\\Assignemts\\Assignement 2\\Room Access Control System\\Room Access Control System\\Form1.Designer.cs",
+              "RelativeToolTip": "Room Access Control System\\Form1.Designer.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA1wIICAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T13:23:08.796Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "D:\\School\\Software Dev - Level 5\\Software Development\\Assignemts\\Assignement 2\\Room Access Control System\\Room Access Control System\\Form1.cs",
+              "RelativeDocumentMoniker": "Room Access Control System\\Form1.cs",
+              "ToolTip": "D:\\School\\Software Dev - Level 5\\Software Development\\Assignemts\\Assignement 2\\Room Access Control System\\Room Access Control System\\Form1.cs",
+              "RelativeToolTip": "Room Access Control System\\Form1.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAApwCQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T13:26:57.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "D:\\School\\Software Dev - Level 5\\Software Development\\Assignemts\\Assignement 2\\Room Access Control System\\Room Access Control System\\Form1.cs",
               "RelativeDocumentMoniker": "Room Access Control System\\Form1.cs",
