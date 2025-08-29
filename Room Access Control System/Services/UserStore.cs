@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.IO;
+using System.Linq;
 using Room_Access_Control_System.Models;
+
+// aliases
+using UT = Room_Access_Control_System.Models.UserType;
 
 namespace Room_Access_Control_System.Services
 {
@@ -15,58 +15,67 @@ namespace Room_Access_Control_System.Services
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             "RoomAccessData");
 
-        private static readonly string UsersPath = Path.Combine(DataRoot, "ID_Card_List.txt");
+        private static readonly string UsersPath = Path.Combine(DataRoot, "users.txt");
+        // Format per line: Name|CardId|PrimaryRole|Role1,Role2,Role3
 
         public static List<UserModel> LoadUsers()
         {
+            Directory.CreateDirectory(DataRoot);
+            if (!File.Exists(UsersPath)) return new List<UserModel>();
+
             var list = new List<UserModel>();
-
-            if (!File.Exists(UsersPath))
+            foreach (var line in File.ReadAllLines(UsersPath))
             {
-                EnsureDir();
-                File.WriteAllText(UsersPath, "Name,CardId,Role" + Environment.NewLine);
-                return list;
-            }
-
-            var lines = File.ReadAllLines(UsersPath);
-            for (int i = 1; i < lines.Length; i++)
-            {
-                var line = lines[i].Trim();
                 if (string.IsNullOrWhiteSpace(line)) continue;
-
-                var parts = line.Split(',');
+                var parts = line.Split('|');
                 if (parts.Length < 3) continue;
 
                 var name = parts[0].Trim();
-                var cardId = parts[1].Trim();
-                UserType role;
-                if (!Enum.TryParse(parts[2].Trim(), out role)) role = UserType.Student;
+                var card = parts[1].Trim();
+                UT primary;
+                if (!Enum.TryParse<UT>(parts[2].Trim(), out primary))
+                    primary = UT.Student;
 
-                list.Add(new UserModel { Name = name, CardId = cardId, Role = role });
+                var roles = new List<UT>();
+                if (parts.Length >= 4 && !string.IsNullOrWhiteSpace(parts[3]))
+                {
+                    foreach (var rStr in parts[3].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        UT r;
+                        if (Enum.TryParse<UT>(rStr.Trim(), out r))
+                            roles.Add(r);
+                    }
+                }
+
+                if (roles.Count == 0) roles.Add(primary); // ensure at least primary present
+
+                list.Add(new UserModel
+                {
+                    Name = name,
+                    CardId = card,
+                    Role = primary,
+                    Roles = roles.Distinct().ToList()
+                });
             }
 
-            // Alphabetical by name
-            list.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
-
-            return list;
+            return list.OrderBy(u => u.Name).ToList();
         }
 
         public static void SaveUsers(List<UserModel> users)
         {
-            EnsureDir();
-            using (var sw = new StreamWriter(UsersPath, false))
-            {
-                sw.WriteLine("Name,CardId,Role");
-                foreach (var u in users)
-                    sw.WriteLine($"{u.Name},{u.CardId},{u.Role}");
-            }
-        }
+            Directory.CreateDirectory(DataRoot);
+            var lines = new List<string>();
 
-        private static void EnsureDir()
-        {
-            var dir = Path.GetDirectoryName(UsersPath);
-            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
-                Directory.CreateDirectory(dir);
+            foreach (var u in users)
+            {
+                var roles = (u.Roles ?? new List<UT>());
+                if (roles.Count == 0) roles.Add(u.Role);
+
+                var rolesCsv = string.Join(",", roles.Select(r => r.ToString()));
+                lines.Add($"{u.Name}|{u.CardId}|{u.Role}|{rolesCsv}");
+            }
+
+            File.WriteAllLines(UsersPath, lines);
         }
     }
 }

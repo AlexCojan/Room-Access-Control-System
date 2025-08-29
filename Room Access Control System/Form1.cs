@@ -19,42 +19,66 @@ namespace Room_Access_Control_System
 {
     public partial class Form1 : Form
     {
-        // ===== Users tab state =====
+        // ====================================
+        // ====== Management (V2) Users Page ==========
         private BindingList<UserModel> _users = new BindingList<UserModel>();
         private DataGridView dgvUsers;
         private TextBox txtUserName, txtCardId;
         private ComboBox cmbUserRole;
         private Button btnAddUser, btnUpdateUser, btnRemoveUser, btnSaveUsers, btnLoadUsers;
+        // ====== Management (V2) Users Page ==========
+        // ====================================
 
-        // ===== Simulate named user on Simulation tab =====
-        private ComboBox cmbSimUser;          // dropdown on Simulation tab
-        private Button btnUseSimUser;         // button on Simulation tab
-        private UserModel _simUser;           // currently selected simulated user (optional)
+        // ====================================
+        // ====== Simulation (V1) Page ================
+        // Optional simulated “named user” picker (created in code)
+        private const bool SHOW_SIM_USER_PICKER = false; // flip to true if you want to show it
+        private ComboBox cmbSimUser;    // created at runtime (Simulation tab)
+        private Button btnUseSimUser;   // created at runtime (Simulation tab)
+        private UserModel _simUser;     // currently selected simulated user
 
-        // ===== Simulated clock state =====
+        // Simulated clock state
         private DateTime _simNow;
         private DateTime _lastRealTick;
         private Timer _clockTimer;
         private bool _editingDate;
         private bool _editingTime;
 
-        // ===== System mode state =====
+        // System mode state
         private SM _systemMode = SM.Normal;
 
-        // ===== User type selection (role buttons) =====
+        // User type selection (role buttons)
         private UT _currentUserType = UT.Student; // default
+        // ====== Simulation (V1) Page ================
+        // ====================================
 
-        // ===== Rooms tab state =====
+        // ====================================
+        // ====== Management (V2) Rooms Page ==========
         private BindingList<RoomModel> _rooms = new BindingList<RoomModel>();
         private DataGridView dgvRooms;
         private TextBox txtRoomCode;
         private ComboBox cmbRoomType, cmbRoomState;
         private Button btnAddRoom, btnUpdateRoom, btnRemoveRoom, btnSaveRooms, btnLoadRooms;
+        // ====== Management (V2) Rooms Page ==========
+        // ====================================
+
+        // ====================================
+        // ====== Management (V2) Roles Page ==========
+        // UI to assign multiple roles to a user
+        private ListBox lstRoleUsers;            // list of users (left)
+        private CheckedListBox clbRoles;         // available roles (right)
+        private Button btnRolesApply, btnRolesClear, btnRolesCopyPrimary;
+        // ====== Management (V2) Roles Page ==========
+        // ====================================
 
         public Form1()
         {
             InitializeComponent();
 
+            ReparentControlsToTabs(); // keep Simulation controls on the Simulation tab
+
+            // ====================================
+            // ====== Simulation (V1) Page ================
             // --- Formats for the two pickers ---
             datePicker.Format = DateTimePickerFormat.Custom;
             datePicker.CustomFormat = "dd/MM/yyyy";
@@ -117,21 +141,98 @@ namespace Room_Access_Control_System
             WireRoom(btnEnterBR103, btnExitBR103, "B.R.103 (Beta Staff Room)", RT.StaffRoom);
             WireRoom(btnEnterBR104, btnExitBR104, "B.R.104 (Beta Secure Room)", RT.SecureRoom);
             WireRoom(btnEnterBH100, btnExitBH100, "B.H.100 (Beta Hallway)", RT.Hallway);
+            // ====== Simulation (V1) Page ================
+            // ====================================
 
-            // Build Management tabs
+            // ====================================
+            // ====== Management (V2) Rooms Page ==========
             BuildRoomsTabUI();
             LoadRoomsToGrid();
+            // ====== Management (V2) Rooms Page ==========
+            // ====================================
+
+            // ====================================
+            // ====== Management (V2) Users Page ==========
             BuildUsersTabUI();
             LoadUsersToGrid();   // also populates the Simulation user picker
+            // ====== Management (V2) Users Page ==========
+            // ====================================
 
-            // Add Simulation user picker (so we can swipe as a named person)
+            // ====================================
+            // ====== Management (V2) Roles Page ==========
+            BuildRolesTabUI();
+            // ====== Management (V2) Roles Page ==========
+            // ====================================
+
+            // ====================================
+            // ====== Simulation (V1) Page ================
+            // Add Simulation user picker (optional)
             SetupSimulationUserPicker();
 
             // Keep picker in sync when Users list changes
-            _users.ListChanged += (s, e) => RefreshSimUserPicker();
+            _users.ListChanged += (s, e) =>
+            {
+                RefreshSimUserPicker();
+                RefreshRolesUserList();
+            };
+            // ====== Simulation (V1) Page ================
+            // ====================================
         }
 
-        // ===== Clock =====
+        // ====================================
+        // ====== Simulation (V1) Page ================
+        // Small helpers (also used by safety re-parenting)
+        private IEnumerable<Control> AllControls(Control parent)
+        {
+            foreach (Control c in parent.Controls)
+            {
+                foreach (var child in AllControls(c)) yield return child;
+                yield return c;
+            }
+        }
+        private void EnsureParent(Control ctl, Control targetParent)
+        {
+            if (ctl == null || targetParent == null || ctl.Parent == targetParent) return;
+            var screen = ctl.PointToScreen(Point.Empty);
+            ctl.Parent = targetParent;
+            ctl.Location = targetParent.PointToClient(screen);
+        }
+
+        // Safety net: make sure Simulation controls live on the Simulation tab
+        private void ReparentControlsToTabs()
+        {
+            // All Enter/Exit buttons belong to Simulation
+            foreach (var ctrl in AllControls(this).OfType<Button>())
+            {
+                if (ctrl.Name.StartsWith("btnEnter", StringComparison.OrdinalIgnoreCase) ||
+                    ctrl.Name.StartsWith("btnExit", StringComparison.OrdinalIgnoreCase))
+                {
+                    EnsureParent(ctrl, tabSimulation);
+                }
+            }
+
+            // Key Simulation controls
+            EnsureParent(timePicker, tabSimulation);
+            EnsureParent(datePicker, tabSimulation);
+            EnsureParent(btnShowLogFile, tabSimulation);
+            EnsureParent(btnSysNormal, tabSimulation);
+            EnsureParent(btnSysEmergency, tabSimulation);
+
+            // Role selection buttons
+            EnsureParent(btnStaffMember, tabSimulation);
+            EnsureParent(btnContractCleaner, tabSimulation);
+            EnsureParent(btnStudent, tabSimulation);
+            EnsureParent(btnManager, tabSimulation);
+            EnsureParent(btnVisitorGuest, tabSimulation);
+            EnsureParent(btnSecurity, tabSimulation);
+            EnsureParent(btnEmergencyResponder, tabSimulation);
+
+            // Main hallway explicit (if not covered)
+            EnsureParent(btnEnterMH100, tabSimulation);
+            EnsureParent(btnExitMH100, tabSimulation);
+        }
+
+        // Clock + “now”
         public DateTime CurrentSimulatedTime => _simNow;
         public UT CurrentUserType => _currentUserType;
 
@@ -160,7 +261,7 @@ namespace Room_Access_Control_System
             _lastRealTick = DateTime.UtcNow;
         }
 
-        // ===== System mode + logging =====
+        // System mode + logging
         private void SetSystemMode(SM mode)
         {
             _systemMode = mode;
@@ -187,14 +288,14 @@ namespace Room_Access_Control_System
             }
         }
 
-        // ===== Wire room buttons =====
+        // Wire room buttons on Simulation tab
         private void WireRoom(Button enterBtn, Button exitBtn, string roomCode, RT roomType)
         {
             if (enterBtn != null) enterBtn.Click += (s, e) => HandleEnter(roomCode, roomType);
             if (exitBtn != null) exitBtn.Click += (s, e) => HandleExit(roomCode, roomType);
         }
 
-        // ===== User Type selection (role buttons) =====
+        // User Type selection (role buttons)
         private void SelectUserType(UT type, Button clicked, bool log = true)
         {
             _currentUserType = type;
@@ -210,10 +311,11 @@ namespace Room_Access_Control_System
             if (log) LogService.Append(CurrentSimulatedTime, $"[USER] {_currentUserType} selected.");
         }
 
-        // ===== Simulation user picker (named people) =====
+        // Optional Simulation user picker (created programmatically)
         private void SetupSimulationUserPicker()
         {
-            // Place near top-right of Simulation tab
+            if (!SHOW_SIM_USER_PICKER) return;  // Feature toggle
+
             cmbSimUser = new ComboBox
             {
                 DropDownStyle = ComboBoxStyle.DropDownList,
@@ -227,17 +329,19 @@ namespace Room_Access_Control_System
                 Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
 
-            // Position (adjust if needed)
+            // Place safely below the date/time & Show Log File controls
             int margin = 10;
-            cmbSimUser.Location = new Point(tabSimulation.ClientSize.Width - cmbSimUser.Width - btnUseSimUser.Width - (margin * 2),
-                                            margin);
-            btnUseSimUser.Location = new Point(tabSimulation.ClientSize.Width - btnUseSimUser.Width - margin, margin);
+            int top = Math.Max(btnShowLogFile.Bottom,
+                      Math.Max(timePicker.Bottom, datePicker.Bottom)) + margin;
+            btnUseSimUser.Location = new Point(tabSimulation.ClientSize.Width - btnUseSimUser.Width - margin, top);
+            cmbSimUser.Location = new Point(btnUseSimUser.Left - cmbSimUser.Width - 6, top);
 
-            // Reposition on resize
             tabSimulation.Resize += (s, e) =>
             {
-                cmbSimUser.Location = new Point(tabSimulation.ClientSize.Width - cmbSimUser.Width - btnUseSimUser.Width - (margin * 2), margin);
-                btnUseSimUser.Location = new Point(tabSimulation.ClientSize.Width - btnUseSimUser.Width - margin, margin);
+                int top2 = Math.Max(btnShowLogFile.Bottom,
+                            Math.Max(timePicker.Bottom, datePicker.Bottom)) + margin;
+                btnUseSimUser.Location = new Point(tabSimulation.ClientSize.Width - btnUseSimUser.Width - margin, top2);
+                cmbSimUser.Location = new Point(btnUseSimUser.Left - cmbSimUser.Width - 6, top2);
             };
 
             btnUseSimUser.Click += (s, e) =>
@@ -246,10 +350,10 @@ namespace Room_Access_Control_System
                 if (selected == null) return;
 
                 _simUser = selected;
-                // set current role to user's role and highlight role button
                 var roleBtn = ButtonForRole(_simUser.Role);
                 SelectUserType(_simUser.Role, roleBtn ?? btnStudent);
-                LogService.Append(CurrentSimulatedTime, $"[SIM USER] {_simUser.Name} (ID:{_simUser.CardId}) selected, role={_simUser.Role}");
+                LogService.Append(CurrentSimulatedTime,
+                    $"[SIM USER] {_simUser.Name} (ID:{_simUser.CardId}) selected, role={_simUser.Role}");
             };
 
             tabSimulation.Controls.Add(cmbSimUser);
@@ -264,7 +368,6 @@ namespace Room_Access_Control_System
             var remember = _simUser != null ? _simUser.CardId : null;
 
             cmbSimUser.DataSource = null;
-            // copy to a new list so we can control display order (alphabetical)
             var list = _users.OrderBy(u => u.Name).ToList();
             cmbSimUser.DataSource = list;
             cmbSimUser.DisplayMember = "Name";
@@ -296,26 +399,55 @@ namespace Room_Access_Control_System
             }
         }
 
-        // ===== Enter / Exit =====
+        // Enter / Exit (Simulation)
         private void HandleEnter(string roomCode, RT roomType)
         {
+            // If a simulated named user is selected and has multiple roles, allow if ANY role permits
+            if (_simUser != null && _simUser.Roles != null && _simUser.Roles.Count > 0)
+            {
+                bool allowedAny = false;
+                string reason = "No matching role";
+                foreach (var r in _simUser.Roles)
+                {
+                    var dec = RuleEngine.Evaluate(r, roomType, _systemMode, CurrentSimulatedTime);
+                    if (dec.Allowed)
+                    {
+                        allowedAny = true;
+                        reason = $"via role {r}: {dec.Reason}";
+                        break;
+                    }
+                }
+                var status2 = allowedAny ? "access granted" : "access denied";
+                LogService.Append(CurrentSimulatedTime,
+                    $"[{_simUser.Name}|ID:{_simUser.CardId}] [{_systemMode}] roles={string.Join(",", _simUser.Roles)} request access {roomCode} - {status2} ({reason})");
+                return;
+            }
+
+            // Otherwise fall back to the currently selected single role button
             var decision = RuleEngine.Evaluate(_currentUserType, roomType, _systemMode, CurrentSimulatedTime);
             var status = decision.Allowed ? "access granted" : "access denied";
-
-            string userTag = _simUser != null ? $"[{_simUser.Name}|ID:{_simUser.CardId}] " : "";
-
             LogService.Append(CurrentSimulatedTime,
-                $"{userTag}[{_systemMode}] {_currentUserType} request access {roomCode} - {status} ({decision.Reason})");
+                $"[{_systemMode}] {_currentUserType} request access {roomCode} - {status} ({decision.Reason})");
         }
 
         private void HandleExit(string roomCode, RT roomType)
         {
-            string userTag = _simUser != null ? $"[{_simUser.Name}|ID:{_simUser.CardId}] " : "";
-            LogService.Append(CurrentSimulatedTime,
-                $"{userTag}[{_systemMode}] {_currentUserType} exit {roomCode}");
-        }
+            if (_simUser != null)
+            {
+                LogService.Append(CurrentSimulatedTime,
+                    $"[{_simUser.Name}|ID:{_simUser.CardId}] [{_systemMode}] exit {roomCode}");
+                return;
+            }
 
-        // ===== Rooms Tab (Management v2) =====
+            LogService.Append(CurrentSimulatedTime,
+                $"[{_systemMode}] {_currentUserType} exit {roomCode}");
+        }
+        // ====== Simulation (V1) Page ================
+        // ====================================
+
+
+        // ====================================
+        // ====== Management (V2) Rooms Page ==========
         private void BuildRoomsTabUI()
         {
             // Grid
@@ -482,8 +614,11 @@ namespace Room_Access_Control_System
 
         private static string SafeSel(ComboBox cmb) =>
             cmb.SelectedItem != null ? cmb.SelectedItem.ToString() : "";
+        // ====== Management (V2) Rooms Page ==========
+        // ====================================
 
-        // ===== Users Tab (Management v2) =====
+        // ====================================
+        // ====== Management (V2) Users Page ==========
         private void BuildUsersTabUI()
         {
             dgvUsers = new DataGridView
@@ -500,10 +635,10 @@ namespace Room_Access_Control_System
             var colCard = new DataGridViewTextBoxColumn { HeaderText = "Card ID", DataPropertyName = "CardId", Width = 120 };
             var colRole = new DataGridViewComboBoxColumn
             {
-                HeaderText = "Role",
+                HeaderText = "Role (Primary)",
                 DataPropertyName = "Role",
                 DataSource = Enum.GetValues(typeof(UT)),
-                Width = 150
+                Width = 160
             };
 
             dgvUsers.Columns.AddRange(colName, colCard, colRole);
@@ -517,8 +652,8 @@ namespace Room_Access_Control_System
             var lblCard = new Label { Text = "Card ID:", Left = 200, Top = 6, AutoSize = true };
             txtCardId = new TextBox { Width = 120, Left = 200, Top = 24 };
 
-            var lblRole = new Label { Text = "Role:", Left = 340, Top = 6, AutoSize = true };
-            cmbUserRole = new ComboBox { Width = 150, Left = 340, Top = 24, DropDownStyle = ComboBoxStyle.DropDownList };
+            var lblRole = new Label { Text = "Primary Role:", Left = 340, Top = 6, AutoSize = true };
+            cmbUserRole = new ComboBox { Width = 160, Left = 340, Top = 24, DropDownStyle = ComboBoxStyle.DropDownList };
             cmbUserRole.Items.AddRange(Enum.GetNames(typeof(UT)));
 
             btnAddUser = new Button { Text = "Add", Left = 510, Top = 20, Width = 70 };
@@ -549,8 +684,16 @@ namespace Room_Access_Control_System
         {
             var loaded = UserStore.LoadUsers();
             _users.Clear();
-            foreach (var u in loaded) _users.Add(u);
+            foreach (var u in loaded)
+            {
+                // Backfill: ensure Roles contains primary Role at least once
+                if (u.Roles == null) u.Roles = new List<UT>();
+                if (u.Roles.Count == 0 && !u.Roles.Contains(u.Role)) u.Roles.Add(u.Role);
+                _users.Add(u);
+            }
+            SortUsers();
             RefreshSimUserPicker();
+            RefreshRolesUserList();
         }
 
         private void DgvUsers_SelectionChanged(object sender, EventArgs e)
@@ -575,9 +718,11 @@ namespace Room_Access_Control_System
             UT role;
             if (!Enum.TryParse<UT>(SafeSel(cmbUserRole), out role)) role = UT.Student;
 
-            _users.Add(new UserModel { Name = name, CardId = card, Role = role });
+            var model = new UserModel { Name = name, CardId = card, Role = role, Roles = new List<UT> { role } };
+            _users.Add(model);
             SortUsers();
             RefreshSimUserPicker();
+            RefreshRolesUserList();
         }
 
         private void BtnUpdateUser_Click(object sender, EventArgs e)
@@ -600,9 +745,12 @@ namespace Room_Access_Control_System
             u.Name = newName;
             u.CardId = newCard;
             u.Role = role;
+            if (u.Roles == null) u.Roles = new List<UT>();
+            if (!u.Roles.Contains(role)) u.Roles.Insert(0, role); // keep primary first
             SortUsers();
             dgvUsers.Refresh();
             RefreshSimUserPicker();
+            RefreshRolesUserList();
         }
 
         private void BtnRemoveUser_Click(object sender, EventArgs e)
@@ -611,6 +759,7 @@ namespace Room_Access_Control_System
             if (u == null) { MessageBox.Show("Select a user to remove."); return; }
             _users.Remove(u);
             RefreshSimUserPicker();
+            RefreshRolesUserList();
         }
 
         private void BtnSaveUsers_Click(object sender, EventArgs e)
@@ -629,8 +778,147 @@ namespace Room_Access_Control_System
         {
             var sorted = _users.OrderBy(u => u.Name).ToList();
             _users.Clear();
-            foreach (var u in sorted) _users.Add(u);   // correctly add back into _users
+            foreach (var u in sorted) _users.Add(u);
         }
+        // ====== Management (V2) Users Page ==========
+        // ====================================
+
+
+        // ====================================
+        // ====== Management (V2) Roles Page ==========
+        private void BuildRolesTabUI()
+        {
+            // Left: users list
+            lstRoleUsers = new ListBox
+            {
+                Dock = DockStyle.Left,
+                Width = 260,
+                IntegralHeight = false
+            };
+
+            // Right: roles checklist + buttons
+            var rightPanel = new Panel { Dock = DockStyle.Fill, Padding = new Padding(8) };
+
+            var lbl = new Label { Text = "Assign Roles (check all that apply):", AutoSize = true, Top = 8, Left = 8 };
+            clbRoles = new CheckedListBox
+            {
+                Top = 28,
+                Left = 8,
+                Width = 280,
+                Height = 220,
+                CheckOnClick = true
+            };
+            clbRoles.Items.AddRange(Enum.GetNames(typeof(UT)));
+
+            btnRolesApply = new Button { Text = "Apply Roles to User", Width = 180, Left = 8, Top = clbRoles.Bottom + 8 };
+            btnRolesClear = new Button { Text = "Clear All", Width = 100, Left = 196, Top = clbRoles.Bottom + 8 };
+            btnRolesCopyPrimary = new Button { Text = "Set Primary = First Checked", Width = 230, Left = 8, Top = btnRolesApply.Bottom + 6 };
+
+            rightPanel.Controls.Add(lbl);
+            rightPanel.Controls.Add(clbRoles);
+            rightPanel.Controls.Add(btnRolesApply);
+            rightPanel.Controls.Add(btnRolesClear);
+            rightPanel.Controls.Add(btnRolesCopyPrimary);
+
+            tabRoles.Controls.Add(rightPanel);
+            tabRoles.Controls.Add(lstRoleUsers);
+
+            // Bind users list
+            RefreshRolesUserList();
+
+            // Events
+            lstRoleUsers.SelectedIndexChanged += (s, e) => LoadRolesForSelectedUser();
+            btnRolesApply.Click += (s, e) => ApplyRolesForSelectedUser();
+            btnRolesClear.Click += (s, e) => { for (int i = 0; i < clbRoles.Items.Count; i++) clbRoles.SetItemChecked(i, false); };
+            btnRolesCopyPrimary.Click += (s, e) => CopyFirstCheckedToPrimary();
+        }
+
+        private void RefreshRolesUserList()
+        {
+            if (lstRoleUsers == null) return;
+            var list = _users.OrderBy(u => u.Name).ToList();
+            lstRoleUsers.DataSource = null;
+            lstRoleUsers.DataSource = list;
+            lstRoleUsers.DisplayMember = "Name";
+            lstRoleUsers.ValueMember = "CardId";
+            if (list.Count > 0) lstRoleUsers.SelectedIndex = 0;
+        }
+
+        private void LoadRolesForSelectedUser()
+        {
+            var u = lstRoleUsers?.SelectedItem as UserModel;
+            if (u == null || clbRoles == null) return;
+
+            // Uncheck all
+            for (int i = 0; i < clbRoles.Items.Count; i++) clbRoles.SetItemChecked(i, false);
+
+            // Check ones that user has
+            if (u.Roles == null) u.Roles = new List<UT>();
+            foreach (var r in u.Roles)
+            {
+                int idx = clbRoles.Items.IndexOf(r.ToString());
+                if (idx >= 0) clbRoles.SetItemChecked(idx, true);
+            }
+        }
+
+        private void ApplyRolesForSelectedUser()
+        {
+            var u = lstRoleUsers?.SelectedItem as UserModel;
+            if (u == null) { MessageBox.Show("Select a user."); return; }
+
+            var selectedRoles = new List<UT>();
+            foreach (var item in clbRoles.CheckedItems)
+            {
+                UT r;
+                if (Enum.TryParse<UT>(item.ToString(), out r)) selectedRoles.Add(r);
+            }
+
+            if (selectedRoles.Count == 0)
+            {
+                MessageBox.Show("Select at least one role or use Clear All to remove roles.");
+                // If totally cleared, keep the primary as-is; you can decide policy here
+            }
+            else
+            {
+                // Set Roles, ensure primary Role equals first checked
+                u.Roles = selectedRoles.Distinct().ToList();
+                u.Role = u.Roles[0];
+                dgvUsers.Refresh();
+                RefreshSimUserPicker();
+                MessageBox.Show($"Roles updated for {u.Name}.\nPrimary role set to {u.Role}.");
+            }
+        }
+
+        private void CopyFirstCheckedToPrimary()
+        {
+            var u = lstRoleUsers?.SelectedItem as UserModel;
+            if (u == null) return;
+
+            // First checked item becomes primary Role
+            foreach (var item in clbRoles.CheckedItems)
+            {
+                UT r;
+                if (Enum.TryParse<UT>(item.ToString(), out r))
+                {
+                    u.Role = r;
+                    if (u.Roles == null) u.Roles = new List<UT>();
+                    if (!u.Roles.Contains(r)) u.Roles.Insert(0, r);
+                    else
+                    {
+                        // ensure primary is first
+                        u.Roles.Remove(r);
+                        u.Roles.Insert(0, r);
+                    }
+                    dgvUsers.Refresh();
+                    MessageBox.Show($"Primary role for {u.Name} set to {u.Role}.");
+                    return;
+                }
+            }
+            MessageBox.Show("No roles are checked.");
+        }
+        // ====== Management (V2) Roles Page ==========
+        // ====================================
+
 
         // ====== Empty designer handlers ======
         private void Form1_Load(object sender, EventArgs e) { }

@@ -30,7 +30,6 @@
         {
             this.mainTabs = new System.Windows.Forms.TabControl();
             this.tabSimulation = new System.Windows.Forms.TabPage();
-            this.tabManagement = new System.Windows.Forms.TabPage();
             this.btnDateTimeSave = new System.Windows.Forms.Button();
             this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.btnEnterMH100 = new System.Windows.Forms.Button();
@@ -138,13 +137,13 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel35 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tabManagement = new System.Windows.Forms.TabPage();
             this.mgmtTabs = new System.Windows.Forms.TabControl();
             this.tabRooms = new System.Windows.Forms.TabPage();
             this.tabUsers = new System.Windows.Forms.TabPage();
             this.tabRoles = new System.Windows.Forms.TabPage();
             this.mainTabs.SuspendLayout();
             this.tabSimulation.SuspendLayout();
-            this.tabManagement.SuspendLayout();
             this.panel33.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel20.SuspendLayout();
@@ -154,6 +153,7 @@
             this.panel30.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tabManagement.SuspendLayout();
             this.mgmtTabs.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -170,8 +170,9 @@
             // 
             // tabSimulation
             // 
-            this.tabSimulation.Controls.Add(this.btnDateTimeSave);
             this.tabSimulation.Controls.Add(this.datePicker);
+            this.tabSimulation.Controls.Add(this.timePicker);
+            this.tabSimulation.Controls.Add(this.btnDateTimeSave);
             this.tabSimulation.Controls.Add(this.btnEnterMH100);
             this.tabSimulation.Controls.Add(this.btnExitMH100);
             this.tabSimulation.Controls.Add(this.btnEnterBH100);
@@ -192,8 +193,6 @@
             this.tabSimulation.Controls.Add(this.btnExitAR103);
             this.tabSimulation.Controls.Add(this.btnExitBR102);
             this.tabSimulation.Controls.Add(this.btnExitBR101);
-            this.tabSimulation.Controls.Add(this.panel39);
-            this.tabSimulation.Controls.Add(this.panel37);
             this.tabSimulation.Controls.Add(this.btnExitAR102);
             this.tabSimulation.Controls.Add(this.btnExitAR101);
             this.tabSimulation.Controls.Add(this.MH100);
@@ -220,7 +219,6 @@
             this.tabSimulation.Controls.Add(this.BuildingBeta);
             this.tabSimulation.Controls.Add(this.BuildingApha);
             this.tabSimulation.Controls.Add(this.AlphaTeachingRoom);
-            this.tabSimulation.Controls.Add(this.timePicker);
             this.tabSimulation.Controls.Add(this.btnEmergencyResponder);
             this.tabSimulation.Controls.Add(this.btnSecurity);
             this.tabSimulation.Controls.Add(this.btnVisitorGuest);
@@ -234,6 +232,8 @@
             this.tabSimulation.Controls.Add(this.SetCurentTime);
             this.tabSimulation.Controls.Add(this.UserType);
             this.tabSimulation.Controls.Add(this.SystemSettings);
+            this.tabSimulation.Controls.Add(this.panel39);
+            this.tabSimulation.Controls.Add(this.panel37);
             this.tabSimulation.Controls.Add(this.panel34);
             this.tabSimulation.Controls.Add(this.panel33);
             this.tabSimulation.Controls.Add(this.panel17);
@@ -275,17 +275,6 @@
             this.tabSimulation.TabIndex = 0;
             this.tabSimulation.Text = "Simulation (V1)";
             this.tabSimulation.UseVisualStyleBackColor = true;
-            // 
-            // tabManagement
-            // 
-            this.tabManagement.Controls.Add(this.mgmtTabs);
-            this.tabManagement.Location = new System.Drawing.Point(4, 22);
-            this.tabManagement.Name = "tabManagement";
-            this.tabManagement.Padding = new System.Windows.Forms.Padding(3);
-            this.tabManagement.Size = new System.Drawing.Size(1576, 835);
-            this.tabManagement.TabIndex = 1;
-            this.tabManagement.Text = "Management (V2)";
-            this.tabManagement.UseVisualStyleBackColor = true;
             // 
             // btnDateTimeSave
             // 
@@ -1321,6 +1310,17 @@
             this.panel1.Size = new System.Drawing.Size(320, 5);
             this.panel1.TabIndex = 95;
             // 
+            // tabManagement
+            // 
+            this.tabManagement.Controls.Add(this.mgmtTabs);
+            this.tabManagement.Location = new System.Drawing.Point(4, 22);
+            this.tabManagement.Name = "tabManagement";
+            this.tabManagement.Padding = new System.Windows.Forms.Padding(3);
+            this.tabManagement.Size = new System.Drawing.Size(1576, 835);
+            this.tabManagement.TabIndex = 1;
+            this.tabManagement.Text = "Management (V2)";
+            this.tabManagement.UseVisualStyleBackColor = true;
+            // 
             // mgmtTabs
             // 
             this.mgmtTabs.Controls.Add(this.tabRooms);
@@ -1375,7 +1375,6 @@
             this.mainTabs.ResumeLayout(false);
             this.tabSimulation.ResumeLayout(false);
             this.tabSimulation.PerformLayout();
-            this.tabManagement.ResumeLayout(false);
             this.panel33.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.panel20.ResumeLayout(false);
@@ -1385,6 +1384,7 @@
             this.panel30.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.tabManagement.ResumeLayout(false);
             this.mgmtTabs.ResumeLayout(false);
             this.ResumeLayout(false);
 
