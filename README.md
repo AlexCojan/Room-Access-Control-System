@@ -35,7 +35,7 @@ The system includes management screens to add/update/remove **Rooms, Users, and 
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/room-access-control-system.git
+   git clone https://github.com/AlexCojan/room-access-control-system.git
 2. Open the solution file (Room_Access_Control_System.sln) in Visual Studio.
 3. Build the project (Ctrl+Shift+B).
 4. Run the app (F5).
