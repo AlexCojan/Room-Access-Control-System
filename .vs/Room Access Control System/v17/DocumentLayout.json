@@ -11,6 +11,22 @@
       "RelativeMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|solutionrelative:room access control system\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|d:\\school\\summer referal\\software development\\room-access-control-system\\room access control system\\models\\roommodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|solutionrelative:room access control system\\models\\roommodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|d:\\school\\summer referal\\software development\\room-access-control-system\\room access control system\\services\\roomstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|solutionrelative:room access control system\\services\\roomstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|d:\\school\\summer referal\\software development\\room-access-control-system\\room access control system\\models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|solutionrelative:room access control system\\models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|d:\\school\\summer referal\\software development\\room-access-control-system\\room access control system\\services\\userstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|solutionrelative:room access control system\\services\\userstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|d:\\school\\summer referal\\software development\\room-access-control-system\\room access control system\\models\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{558442E6-5934-48AD-A4DC-9625BB0435C7}|Room Access Control System\\Room Access Control System.csproj|solutionrelative:room access control system\\models\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -40,7 +56,7 @@
               "RelativeDocumentMoniker": "Room Access Control System\\Form1.cs",
               "ToolTip": "D:\\School\\Summer Referal\\Software Development\\Room-Access-Control-System\\Room Access Control System\\Form1.cs",
               "RelativeToolTip": "Room Access Control System\\Form1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGoCAAAAAAAAAAAAwIYCAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-03T13:26:57.414Z",
               "EditorCaption": ""
@@ -59,7 +75,59 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserStore.cs",
+              "DocumentMoniker": "D:\\School\\Summer Referal\\Software Development\\Room-Access-Control-System\\Room Access Control System\\Services\\UserStore.cs",
+              "RelativeDocumentMoniker": "Room Access Control System\\Services\\UserStore.cs",
+              "ToolTip": "D:\\School\\Summer Referal\\Software Development\\Room-Access-Control-System\\Room Access Control System\\Services\\UserStore.cs",
+              "RelativeToolTip": "Room Access Control System\\Services\\UserStore.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAgwAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-29T02:55:47.071Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserModel.cs",
+              "DocumentMoniker": "D:\\School\\Summer Referal\\Software Development\\Room-Access-Control-System\\Room Access Control System\\Models\\UserModel.cs",
+              "RelativeDocumentMoniker": "Room Access Control System\\Models\\UserModel.cs",
+              "ToolTip": "D:\\School\\Summer Referal\\Software Development\\Room-Access-Control-System\\Room Access Control System\\Models\\UserModel.cs",
+              "RelativeToolTip": "Room Access Control System\\Models\\UserModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-29T02:55:08.426Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RoomStore.cs",
+              "DocumentMoniker": "D:\\School\\Summer Referal\\Software Development\\Room-Access-Control-System\\Room Access Control System\\Services\\RoomStore.cs",
+              "RelativeDocumentMoniker": "Room Access Control System\\Services\\RoomStore.cs",
+              "ToolTip": "D:\\School\\Summer Referal\\Software Development\\Room-Access-Control-System\\Room Access Control System\\Services\\RoomStore.cs",
+              "RelativeToolTip": "Room Access Control System\\Services\\RoomStore.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAgwAQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-29T02:44:13.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "RoomModel.cs",
+              "DocumentMoniker": "D:\\School\\Summer Referal\\Software Development\\Room-Access-Control-System\\Room Access Control System\\Models\\RoomModel.cs",
+              "RelativeDocumentMoniker": "Room Access Control System\\Models\\RoomModel.cs",
+              "ToolTip": "D:\\School\\Summer Referal\\Software Development\\Room-Access-Control-System\\Room Access Control System\\Models\\RoomModel.cs",
+              "RelativeToolTip": "Room Access Control System\\Models\\RoomModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-29T02:41:10.584Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Enums.cs",
               "DocumentMoniker": "D:\\School\\Summer Referal\\Software Development\\Room-Access-Control-System\\Room Access Control System\\Models\\Enums.cs",
               "RelativeDocumentMoniker": "Room Access Control System\\Models\\Enums.cs",
@@ -72,7 +140,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "RuleEngine.cs",
               "DocumentMoniker": "D:\\School\\Summer Referal\\Software Development\\Room-Access-Control-System\\Room Access Control System\\Services\\RuleEngine.cs",
               "RelativeDocumentMoniker": "Room Access Control System\\Services\\RuleEngine.cs",
@@ -85,7 +153,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "LogService.cs",
               "DocumentMoniker": "D:\\School\\Summer Referal\\Software Development\\Room-Access-Control-System\\Room Access Control System\\Services\\LogService.cs",
               "RelativeDocumentMoniker": "Room Access Control System\\Services\\LogService.cs",
