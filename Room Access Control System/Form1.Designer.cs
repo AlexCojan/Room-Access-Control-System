@@ -273,7 +273,7 @@
             this.tabSimulation.Padding = new System.Windows.Forms.Padding(3);
             this.tabSimulation.Size = new System.Drawing.Size(1576, 835);
             this.tabSimulation.TabIndex = 0;
-            this.tabSimulation.Text = "Simulation (v1)";
+            this.tabSimulation.Text = "Simulation (V1)";
             this.tabSimulation.UseVisualStyleBackColor = true;
             // 
             // tabManagement
@@ -284,7 +284,7 @@
             this.tabManagement.Padding = new System.Windows.Forms.Padding(3);
             this.tabManagement.Size = new System.Drawing.Size(1576, 835);
             this.tabManagement.TabIndex = 1;
-            this.tabManagement.Text = "Management (v2)";
+            this.tabManagement.Text = "Management (V2)";
             this.tabManagement.UseVisualStyleBackColor = true;
             // 
             // btnDateTimeSave
