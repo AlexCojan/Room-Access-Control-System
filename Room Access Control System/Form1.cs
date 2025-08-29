@@ -32,7 +32,7 @@ namespace Room_Access_Control_System
         // ====================================
         // ====== Simulation (V1) Page ================
         // Optional simulated “named user” picker (created in code)
-        private const bool SHOW_SIM_USER_PICKER = false; // flip to true if you want to show it
+        private const bool SHOW_SIM_USER_PICKER = true; // flip to true if you want to show it
         private ComboBox cmbSimUser;    // created at runtime (Simulation tab)
         private Button btnUseSimUser;   // created at runtime (Simulation tab)
         private UserModel _simUser;     // currently selected simulated user
@@ -641,7 +641,15 @@ namespace Room_Access_Control_System
                 Width = 160
             };
 
-            dgvUsers.Columns.AddRange(colName, colCard, colRole);
+            var colRoles = new DataGridViewTextBoxColumn
+            {
+                HeaderText = "All Roles",
+                DataPropertyName = "RolesDisplay",
+                ReadOnly = true,
+                Width = 200
+            };
+
+            dgvUsers.Columns.AddRange(colName, colCard, colRole, colRoles);
 
             // Editor panel
             var editor = new Panel { Dock = DockStyle.Top, Height = 60, Padding = new Padding(8) };

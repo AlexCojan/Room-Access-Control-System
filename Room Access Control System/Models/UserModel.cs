@@ -11,10 +11,15 @@ namespace Room_Access_Control_System.Models
         public string Name { get; set; }
         public string CardId { get; set; }
 
-        // Primary role (kept for compatibility with existing UI)
+        // Primary role
         public UT Role { get; set; }
 
-        // Multiple roles (new)
+        // Multiple roles
         public List<UT> Roles { get; set; } = new List<UT>();
+
+        // Display string for DataGridView
+        public string RolesDisplay => (Roles != null && Roles.Count > 0)
+            ? string.Join(", ", Roles)
+            : Role.ToString();
     }
 }
