@@ -1,4 +1,4 @@
-# Room Access Control System 🏫🔐
+# 🏫🔐 Room Access Control System 
 
 ## Overview
 This project is a **C# Windows Forms prototype** for a college **Room Access Control System**.  
@@ -25,7 +25,7 @@ The system includes management screens to add/update/remove **Rooms, Users, and 
 
 -----------------------------------------------------------------------------------------------------
 
-## Setup Instructions ⚙️
+## ⚙️ Setup Instructions
 
 ### Requirements
 - Windows 10/11
@@ -51,16 +51,14 @@ The system includes management screens to add/update/remove **Rooms, Users, and 
 
 -----------------------------------------------------------------------------------------------------
 
-## Contribution & Workflow Guidelines 🤝
+## 🤝 Contribution & Workflow Guidelines
    - This repository is set up for collaborative development. Please follow these rules:
 
----------------------------
 ### Branching Model
    - main → stable version (ready to run for demo/marking).
    - dev → active development branch.
    - Feature branches → feature/<short-name> (e.g., feature/add-role-multi).
 
----------------------------
 ### Workflow
 1. Always branch from dev.
 2. Implement your feature or fix.
@@ -69,12 +67,10 @@ The system includes management screens to add/update/remove **Rooms, Users, and 
 4. Push your branch and create a Pull Request (PR) → target dev.
 5. Another team member reviews before merging.
 
----------------------------
 ### Issues
    - Use GitHub Issues to track bugs, tasks, and enhancements.
    -Link commits/PRs to issues for traceability.
 
----------------------------
 ### Code Style
    - Follow standard C# naming conventions.
    - Keep UI code (Form1) clean: delegate logic to RuleEngine, LogService, etc.
