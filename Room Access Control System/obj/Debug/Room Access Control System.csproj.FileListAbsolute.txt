@@ -19,3 +19,13 @@ D:\School\Summer Referal\Software Development\Room-Access-Control-System\Room Ac
 D:\School\Summer Referal\Software Development\Room-Access-Control-System\Room Access Control System\obj\Debug\Room Access Control System.exe
 D:\School\Summer Referal\Software Development\Room-Access-Control-System\Room Access Control System\obj\Debug\Room Access Control System.pdb
 D:\School\Summer Referal\Software Development\Room-Access-Control-System\Room Access Control System\obj\Debug\Room Access Control System.exe.config
+D:\Room-Access-Control-System\Room Access Control System\bin\Debug\Room Access Control System.exe.config
+D:\Room-Access-Control-System\Room Access Control System\bin\Debug\Room Access Control System.exe
+D:\Room-Access-Control-System\Room Access Control System\bin\Debug\Room Access Control System.pdb
+D:\Room-Access-Control-System\Room Access Control System\obj\Debug\Room Access Control System.csproj.AssemblyReference.cache
+D:\Room-Access-Control-System\Room Access Control System\obj\Debug\Room_Access_Control_System.Form1.resources
+D:\Room-Access-Control-System\Room Access Control System\obj\Debug\Room_Access_Control_System.Properties.Resources.resources
+D:\Room-Access-Control-System\Room Access Control System\obj\Debug\Room Access Control System.csproj.GenerateResource.cache
+D:\Room-Access-Control-System\Room Access Control System\obj\Debug\Room Access Control System.csproj.CoreCompileInputs.cache
+D:\Room-Access-Control-System\Room Access Control System\obj\Debug\Room Access Control System.exe
+D:\Room-Access-Control-System\Room Access Control System\obj\Debug\Room Access Control System.pdb
